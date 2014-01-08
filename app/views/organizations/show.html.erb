@@ -1,0 +1,26 @@
+<h1>Contact View</h1>
+<table class="table-bordered">
+  <!-- For filter purpose of contacts-->
+  <%= form_tag organization_path(@org.id), :method => 'get', :id => "contacts_search" do %>
+    <thead>
+        <tr>
+          <% @org.org_fields.each do | single_org | %>
+            <td><input id="<%= single_org.field_no %>" name="search_field[<%= single_org.field_no %>]" type="text"><%#= text_field_tag :first_name %></td>
+          <% end %>
+        </tr>
+    </thead>
+  <% end %>
+</table>
+<!-- For display contacts list-->
+<div id="cresults_div"><%= render 'contacts/cresults', :org => @org %></div>
+
+<script type="text/javascript">
+  $(function() {
+    <% @org.org_fields.each do | single_org | %>
+	    $("#<%= single_org.field_no %>").keyup(function() {
+	      $.get($("#contacts_search").attr("action"), $("#contacts_search").serialize(), null, "script");
+	      return false;
+    });
+    <% end %>
+  });
+</script>

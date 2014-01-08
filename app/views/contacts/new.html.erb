@@ -1,0 +1,5 @@
+<h1>New Contact</h1>
+<%=form_for @contact, url: contacts_path, method: :post do |f|%>
+	<%=f.collection_select :organization_id, Organization.all, :id, :name %><br/>
+	<%=f.submit%>
+<%end%>

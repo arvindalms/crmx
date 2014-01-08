@@ -1,0 +1,29 @@
+
+<table class="table-bordered">
+  <tr>
+  <%if org.present?%>
+    <% org.org_fields.each do | single_org | %>
+      <th><%= single_org.name %></th>
+    <% end %>
+    <th><b><%=link_to '+',organization_new_fields_path(org.id)%></b></th>
+  </tr>
+    <%@contacts.each do |contact|%>
+      <tr>
+      <% org.org_fields.each do | single_org | %>
+        <td><%=contact.send(single_org.field_no)%></td>
+      <% end %>
+      </tr>
+    <%end%>
+  <%end%>
+  <tr>
+    <%=form_for :contact, url: contacts_path, method: :post do |f|%>
+      <% org.org_fields.each do | single_org | %>
+      <td>
+        <%=f.text_field "#{single_org.field_no}"%>
+      </td>
+      <% end %>
+      <td><%=f.collection_select :group_id, Group.all, :id, :name%></td>
+      <td><%=f.submit 'save'%></td>
+    <%end%>
+  </tr>
+</table>
