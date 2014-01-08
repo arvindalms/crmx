@@ -11,7 +11,6 @@ class OrganizationsController < ApplicationController
 	def create
 		org = Organization.new(org_params)
 		# group = org.groups.new(:name=>org.name,:organization_id => org.id)
-		binding.pry
 		if org.save
 			redirect_to organizations_path
 		end
