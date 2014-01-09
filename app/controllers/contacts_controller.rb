@@ -1,7 +1,7 @@
 class ContactsController < ApplicationController
 
 	def index
-			@contacts = Contact.all
+		@contacts = Contact.all
 	end
 
 	def new
@@ -10,8 +10,26 @@ class ContactsController < ApplicationController
 
 	def create
 		contact = Contact.new(contact_params)
-		contact.save
-		redirect_to :back
+		if contact.save
+			redirect_to :back
+		end
+	end
+
+	respond_to :html, :json
+	def destroy_contacts
+		@org = Organization.find(params[:contact][:org_id])
+	  contacts = Contact.find(params[:contact_ids])
+	  contacts.each do |contact|
+	  	contact.destroy 
+	 	end
+	 	respond_with @org
+	end
+
+	respond_to :html, :json
+	def update
+		@contact = Contact.find(params[:id])
+		@contact.update_attributes(contact_params)
+		respond_with @contact
 	end
 
 	private

@@ -3,11 +3,15 @@ Crm::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  resources :organizations, only: [:index, :show, :new, :create] do
+  resources :organizations, only: [:index, :show, :new, :create, :destroy] do
+    get 'groups'
     get 'new_fields'
     post 'create_fields'
+    get 'new_group'
+    post 'create_group'
   end
-  resources :contacts, only: [:index, :new, :create]
+  resources :contacts
+  delete 'destroy_contacts' => 'contacts#destroy_contacts'
   root 'organizations#index'
 
   # Example of regular route:

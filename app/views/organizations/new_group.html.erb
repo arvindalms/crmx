@@ -1,0 +1,7 @@
+<h1>New group</h1>
+<%=form_for :group, url: organization_create_group_path(params[:organization_id]), method: :post do |f| %>
+	<%=f.label :name%>
+	<%=f.text_field :name%><br/>
+	<%=f.hidden_field :organization_id, value: params[:organization_id]%>
+	<%=f.submit%>
+<%end%>

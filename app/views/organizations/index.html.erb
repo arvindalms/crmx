@@ -1,5 +1,7 @@
 <h1>Organization listing</h1>
 <%=link_to 'New Organization', new_organization_path%><br/>
 <%@orgs.each do |org|%>
-	<%=link_to org.name, org%><br/>
+	<%=link_to org.name, org%>&nbsp;&nbsp;&nbsp;&nbsp;
+	<%=link_to 'groups' , organization_groups_path(org.id)%>&nbsp;&nbsp;&nbsp;&nbsp;
+	<%=link_to 'Delete', org , method: :delete, data: {confirm: "Are you sure"}%><br/>
 <%end%>

@@ -1,0 +1,12 @@
+<h1>Groups of <%=@org.name%></h1>
+<p><%=link_to 'New group',organization_new_group_path(params[:organization_id])%></p>
+<table>
+	<tr>
+		<th>Name</th>
+	</tr>
+	<%@groups.each do |group|%>
+		<tr>
+			<td><%=group.name%></td>
+		</tr>
+	<%end%>
+</table>
