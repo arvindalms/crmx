@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20140108094322) do
   create_table "org_fields", force: true do |t|
     t.string   "name"
     t.string   "data_type"
-    t.string  "field_no" 
+    t.string   "field_no"
     t.integer  "organization_id"
     t.datetime "created_at"
     t.datetime "updated_at"
