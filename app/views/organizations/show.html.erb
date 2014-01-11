@@ -21,9 +21,9 @@
           <% end %>
           <th><%= "Group" %></th>
           <th class="last_column">
-            <% if @org.org_fields.count != 10 %>
+            <%# if @org.org_fields.count != 10 %>
               <b><%=link_to '+',organization_new_fields_path(@org.id)%></b>
-            <% end %>
+            <%# end %>
           </th>
         </tr>
       <% end %>
@@ -79,7 +79,7 @@ $("#remove_contacts").click(function(){
     var searchIDs = $("input:checkbox:checked").map(function(){
       return $(this).val();
     }).get(); // <----
-    
+
     $.ajax({
         type: "post",
         url: "<%= destroy_contacts_path %>", //sumbits it to the given url of the form
