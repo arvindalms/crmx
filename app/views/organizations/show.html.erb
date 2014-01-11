@@ -38,7 +38,7 @@
   <div class="pull-right">
     <div class='fancy-file'>
       Upload CSV:
-      <img class ="state" src="../assets/Upload.png" style="height: 35px; width: 41px;" Title="Upload CSV"/> 
+      <%= image_tag("Upload.png", :border => 0, :style=>"width: 41px; height: 35px;",:title=>"Upload CSV", :class =>"state")%>
         <div class='input-container'>
           <%= form_for @organisation, :url=>upload_csv_path, :html => {multipart: true} do |f| %>
             <%= file_field_tag "file", :onchange=> "uploadFile()" , :style=>"height: 45px; width: 45px;" %>
