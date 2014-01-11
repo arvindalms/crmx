@@ -18,6 +18,7 @@ class OrganizationsController < ApplicationController
 	end
 
 	def show
+
 		@person = Organization.new
 		@org = Organization.find(params[:id])
 		@groups = @org.groups
@@ -43,16 +44,16 @@ class OrganizationsController < ApplicationController
 		@groups = @org.groups
 	end
 
-	# def new_fields
-	# 	@fields = []
-	# 	@org = Organization.find(params[:organization_id])
-	# 	@field_nos = @org.org_fields.collect(&:field_no).uniq
-	# 	!Contact.column_names.select { |v| v =~ /[f]/ }.each do |field_no|
-	# 		if !@field_nos.include? field_no
-	# 			@fields << field_no
-	# 		end
-	# 	end
-	# end
+	def new_fields
+		@fields = []
+		@org = Organization.find(params[:organization_id])
+		@field_nos = @org.org_fields.collect(&:field_no).uniq
+		!Contact.column_names.select { |v| v =~ /[f]/ }.each do |field_no|
+			if !@field_nos.include? field_no
+				@fields << field_no
+			end
+		end
+	end
 
 	def create_fields
 		field = OrgField.new(fields_params)
@@ -62,7 +63,6 @@ class OrganizationsController < ApplicationController
 	end
 
 	def create_group
-
 		group = Group.new(group_params)
 		if group.save
 			redirect_to organization_path(params[:organization_id])
@@ -85,7 +85,8 @@ class OrganizationsController < ApplicationController
 	          contact_data["f8"] = row[7]
 	          contact_data["f9"] = row[8]
 	          contact_data["f10"] = row[9]
-	          if !row[10].blank?
+
+	          if(!row[10].blank? && (Group.all.collect(&:id).include? row[10].to_i))
 	          	contact_data["group_id"] = row[10]
 	          else
 	          	contact_data["group_id"] = params[:default_group_id]

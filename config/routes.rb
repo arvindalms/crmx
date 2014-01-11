@@ -12,6 +12,7 @@ Crm::Application.routes.draw do
   end
   resources :contacts
   delete 'destroy_contacts' => 'contacts#destroy_contacts'
+  post 'destroy_contacts' => 'contacts#destroy_contacts'
 
   post "upload_csv" => "organizations#upload_csv", as: :upload_csv
 

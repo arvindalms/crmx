@@ -7,6 +7,9 @@
           <%=best_in_place contact, single_org.field_no.to_sym %>
         </td>
       <%end%>
+      <td>  
+        <%= Group.find(contact.group_id).name %>
+      </td>
       <td class="last_column">
         <%= check_box_tag 'contact_ids[]', contact.id, false, style: 'margin:7px' %>
       </td>

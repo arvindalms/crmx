@@ -6,7 +6,6 @@
     background: none repeat scroll 0 0 white;
   	position: fixed;
   	height: auto;
-    z-index: 100;
   }
 
   #header_div{ width: 100%; top: 0; }
@@ -14,16 +13,27 @@
   #footer_div{  width: 99%; bottom: 0; }
 
   #cresults_div{
-    margin-top:84px; 
-    margin-bottom: 82px;
+    margin-bottom: 95px;
   }
 
+  .table-bordered {
+    width:100%;
+    table-layout:fixed;
+  }
+
+  .table-bordered.header {
+    width:99% !important;
+    table-layout:fixed;
+  }
+
+  table tr { height:1em;  }
+
   .table-bordered input {
-    width: 111px;
+    width: 100px;
   }
 
   td{
-    width: 116px;
+    overflow:hidden;
   }
 
   .footer_input {
@@ -31,7 +41,7 @@
   }
 
   .last_column {
-    width: 10px;
+    width: 35px;
    }
 
   div.fancy-file {
