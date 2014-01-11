@@ -3,8 +3,8 @@
     <% @contacts.each do |contact|%>
       <tr>
       <% org.org_fields.each do | single_org | %>
-        <td><%#= contact.send(single_org.field_no) %>
-          <%=best_in_place contact, single_org.field_no.to_sym %>
+        <td class="contact_td" id="<%= contact.id%>_<%= single_org.field_no %>"><%#= contact.send(single_org.field_no) %>
+          <%= best_in_place contact, single_org.field_no.to_sym %>
         </td>
       <%end%>
       <td>  
@@ -17,3 +17,11 @@
     <%end%>
   <%end%>
 </table>
+<script>
+$(".contact_td").click(function(e){
+  if ( e.target === this ) {
+    $("#best_in_place_contact_"+this.id).trigger( "click" );
+  }
+})
+
+</script>

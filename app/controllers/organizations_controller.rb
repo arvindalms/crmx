@@ -45,17 +45,6 @@ class OrganizationsController < ApplicationController
 		@groups = @org.groups
 	end
 
-	# def new_fields
-	# 	@fields = []
-	# 	@org = Organization.find(params[:organization_id])
-	# 	@field_nos = @org.org_fields.collect(&:field_no).uniq
-	# 	!Contact.column_names.select { |v| v =~ /[f]/ }.each do |field_no|
-	# 		if !@field_nos.include? field_no
-	# 			@fields << field_no
-	# 		end
-	# 	end
-	# end
-
 	def create_fields
 		field = OrgField.new(fields_params)
 		if field.save!

@@ -51,7 +51,7 @@
     <div style="margin-top: -40px ! important;">
       Download CSV:
       <%= link_to image_tag("Download.png", :border => 0, :style=>"width: 41px; height: 35px;",:title=>"Downlod CSV"),organization_path(format: "csv")%>
-      <button id="remove_contacts" >Remove</button>
+      <button id="remove_contacts" class="btn btn-danger">Remove</button>
     </div>
   </div>
   <table class="table-bordered delete_icon">
@@ -62,8 +62,8 @@
           <%=f.text_field "#{single_org.field_no}", :class=>"footer_input", :placeholder=>single_org.name%>
         </td>
         <% end %>
-        <td><%=f.collection_select :group_id, @groups, :id, :name%></td>
-        <td><%=f.submit 'save', :style=>"width:54px;"%></td>
+        <td><%= f.collection_select :group_id, @groups, :id, :name %></td>
+        <td><%=f.submit 'save', :style=>"width:54px;", :class=>"btn btn-primary" %></td>
       <%end%>
     </tr>
   </table>
@@ -93,15 +93,16 @@ function uploadFile() {
   $( "#submit_csv_form" ).trigger( "click" )
 }
 
+
+$(function(){
+  <% @org.org_fields.each do | single_org | %>
+    $("#<%= single_org.field_no %>").keyup(function() {
+      $.get($("#contacts_search").attr("action"), $("#contacts_search").serialize(), null, "script");
+      return false;
+  });
+  <% end %>
+});
+
+
 </script>
 
-<script type="text/javascript">
-  $(function(){
-    <% @org.org_fields.each do | single_org | %>
-      $("#<%= single_org.field_no %>").keyup(function() {
-        $.get($("#contacts_search").attr("action"), $("#contacts_search").serialize(), null, "script");
-        return false;
-    });
-    <% end %>
-  });
-</script>
