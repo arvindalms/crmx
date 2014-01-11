@@ -17,12 +17,21 @@ class ContactsController < ApplicationController
 
 	respond_to :html, :json
 	def destroy_contacts
-		@org = Organization.find(params[:contact][:org_id])
-	  contacts = Contact.find(params[:contact_ids])
-	  contacts.each do |contact|
-	  	contact.destroy 
-	 	end
-	 	respond_with @org
+		# if params[:selected_contact_ids].present?
+		# 	params[:selected_contact_ids].each do |contact_id|
+		# 		@contact = Contact.find(contact_id)
+		# 		@org_id = @contact.group.organization_id
+		# 		@contact.destroy
+		# 	end
+		# 	redirect_to (organization_path(@org_id), :method => "get")
+		# else
+			@org = Organization.find(params[:contact][:org_id])
+			  contacts = Contact.find(params[:contact_ids])
+			  contacts.each do |contact|
+		  	contact.destroy 
+		 	end
+		 	respond_with @org
+		# end
 	end
 
 	respond_to :html, :json

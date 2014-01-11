@@ -12,4 +12,15 @@ class Contact < ActiveRecord::Base
      scoped
     end
   end
+
+  def self.to_csv(options = {})
+    CSV.generate(options) do |csv|
+      csv << Contact.column_names.select { |v| v =~ /[f]/ || v=~ /g/ }
+      all.each do |product|
+        csv << product.attributes.values_at("f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "group_id")
+      end
+    end
+  end
+
+
 end

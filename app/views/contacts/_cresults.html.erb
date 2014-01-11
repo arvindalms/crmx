@@ -1,42 +1,24 @@
 <table class="table-bordered delete_icon">
-  <tr>
   <%if org.present?%>
-    <% org.org_fields.each do | single_org | %>
-      <th><%= single_org.name %></th>
-    <% end %>
-    <th><b><%=link_to '+',organization_new_fields_path(org.id)%></b></th>
-  </tr>
-    <%@contacts.each do |contact|%>
+    <% @contacts.each do |contact|%>
       <tr>
-      <%org.org_fields.each do | single_org | %>
+      <% org.org_fields.each do | single_org | %>
         <td><%#= contact.send(single_org.field_no) %>
           <%=best_in_place contact, single_org.field_no.to_sym %>
         </td>
       <%end%>
+      <td class="last_column">
+        <%= check_box_tag 'contact_ids[]', contact.id, false, style: 'margin:7px' %>
+      </td>
       </tr>    
     <%end%>
   <%end%>
-  <tr>
-    <%=form_for :contact, url: contacts_path, method: :post do |f|%>
-      <% org.org_fields.each do | single_org | %>
-      <td>
-        <%=f.text_field "#{single_org.field_no}"%>
-      </td>
-      <% end %>
-      <td><%=f.collection_select :group_id, @groups, :id, :name%></td>
-      <td><%=f.submit 'save'%></td>
-    <%end%>
-  </tr>
 </table>
 <%if @contacts.present?%>
-  <div class="delete_form">
+<!--   <div class="delete_form">
     <%=form_for :contact, url: destroy_contacts_path , method: :delete, remote: true do |f|%>
       <%=f.hidden_field :org_id, value: org.id%>
-      <% @contacts.each do |contact| %>
-        <%= check_box_tag 'contact_ids[]', contact.id, false, style: 'margin:7px' %>
-        <br/>
-      <% end %>
       <%=f.submit 'Remove',style: 'margin-top:50px;'%>
     <%end%>
-  </div>
+  </div> -->
 <%end%>

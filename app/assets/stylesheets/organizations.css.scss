@@ -1,3 +1,52 @@
 // Place all the styles related to the organizations controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+ .stick{
+    background: none repeat scroll 0 0 white;
+  	position: fixed;
+  	height: auto;
+    z-index: 100;
+  }
+
+  #header_div{ width: 100%; top: 0; }
+
+  #footer_div{  width: 99%; bottom: 0; }
+
+  #cresults_div{
+    margin-top:84px; 
+    margin-bottom: 82px;
+  }
+
+  .table-bordered input {
+    width: 111px;
+  }
+
+  td{
+    width: 116px;
+  }
+
+  .footer_input {
+    width: 90px !important;
+  }
+
+  .last_column {
+    width: 10px;
+   }
+
+  div.fancy-file {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      width: 155px;
+      left: -157px;
+  }
+
+  div.input-container {
+      position: absolute;
+      top: 0; left: 0;
+  }
+
+  div.input-container input { opacity: 0; }
+
+  .pull-right{float:right;}

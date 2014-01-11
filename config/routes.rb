@@ -12,6 +12,9 @@ Crm::Application.routes.draw do
   end
   resources :contacts
   delete 'destroy_contacts' => 'contacts#destroy_contacts'
+
+  get "upload_csv" => "organizations#upload_csv", as: :upload_csv
+
   root 'organizations#index'
 
   # Example of regular route:
