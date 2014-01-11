@@ -18,8 +18,8 @@ class OrganizationsController < ApplicationController
 	end
 
 	def show
-
-		@person = Organization.new
+	
+		@organisation = Organization.new
 		@org = Organization.find(params[:id])
 		@groups = @org.groups
 		if params[:search_field]	
@@ -29,6 +29,7 @@ class OrganizationsController < ApplicationController
 		end
 		respond_to do |format|
 	      format.html
+	      format.js
 	      format.csv { send_data @contacts.to_csv, :type => 'text/csv', :filename => "contacts.csv" }
 	    end
 	end
