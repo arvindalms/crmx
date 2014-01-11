@@ -18,6 +18,7 @@ class OrganizationsController < ApplicationController
 	end
 
 	def show
+		@person = Organization.new
 		@org = Organization.find(params[:id])
 		@groups = @org.groups
 		if params[:search_field]	
@@ -65,6 +66,53 @@ class OrganizationsController < ApplicationController
 		group = Group.new(group_params)
 		if group.save
 			redirect_to organization_path(params[:organization_id])
+		end
+	end
+
+	def upload_csv
+		if params[:file].content_type == "text/csv"
+		  contacts = []
+	      CSV.foreach(params[:file].tempfile) { |row|
+	          row = row.first.split(",") if row.count == 1
+	          contact_data = {}
+	          contact_data["f1"] = row[0]
+	          contact_data["f2"] = row[1]
+	          contact_data["f3"] = row[2]
+	          contact_data["f4"] = row[3]
+	          contact_data["f5"] = row[4]
+	          contact_data["f6"] = row[5]
+	          contact_data["f7"] = row[6]
+	          contact_data["f8"] = row[7]
+	          contact_data["f9"] = row[8]
+	          contact_data["f10"] = row[9]
+	          if !row[10].blank?
+	          	contact_data["group_id"] = row[10]
+	          else
+	          	contact_data["group_id"] = params[:default_group_id]
+	          end
+	          contacts << contact_data
+	      }
+
+	      #remove first row with column name and make a new array with contacts
+	      contacts = contacts[1..contacts.length]
+	      contacts.each do |contact|
+	        @contact = Contact.new
+	        @contact.f1=contact["f1"]
+	        @contact.f2=contact["f2"]
+	        @contact.f3=contact["f3"]
+	        @contact.f4=contact["f4"]
+	        @contact.f5=contact["f5"]
+	        @contact.f6=contact["f6"]
+	        @contact.f7=contact["f7"]
+	        @contact.f8=contact["f8"]
+	        @contact.f9=contact["f9"]
+	        @contact.f10=contact["f10"]
+	        @contact.group_id=contact["group_id"]
+	        @contact.save
+     	  end
+     	  redirect_to organization_path(Group.find(params[:default_group_id]).organization_id)
+		else
+		  redirect_to organization_path(Group.find(params[:default_group_id]).organization_id)
 		end
 	end
 
