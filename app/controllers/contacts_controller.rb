@@ -9,7 +9,6 @@ class ContactsController < ApplicationController
 	end
 
 	def create
-		debugger
 		contact = Contact.new(contact_params)
 		if contact.save
 			redirect_to :back

@@ -22,10 +22,11 @@ class OrganizationsController < ApplicationController
 		@organisation = Organization.new
 		@org = Organization.find(params[:id])
 		@groups = @org.groups
+
 		if params[:search_field]	
 			@contacts = @org.contacts.search(params[:search_field])
 		else
-			@contacts = @org.contacts
+			@contacts = @org.contacts.sort_by(&:id)
 		end
 		respond_to do |format|
 	      format.html

@@ -6,11 +6,11 @@
       <%= form_tag organization_path(@org.id), method: :get, id: "contacts_search" do %>
         <tr>
           <% @org.org_fields.each do | single_org | %>
-            <td><input id="<%= single_org.field_no %>" name="search_field[<%= single_org.field_no %>]" type="text" placeholder="Search <%= single_org.name %>"><%#= text_field_tag :first_name %></td>
+            <td><input id="<%= single_org.field_no %>" name="search_field[<%= single_org.field_no %>]" type="text" placeholder="Search <%= single_org.name %>" class="input_textboxes"><%#= text_field_tag :first_name %></td>
           <% end %>
           <% if !@contacts.blank? %>
             <td></td>
-            <td class="last_column">All<input type="checkbox"  id="select_all"/></td>
+            <td id="last_column">All<input type="checkbox"  id="select_all"/></td>
           <% end %>
         </tr>
       <% end %>
@@ -20,7 +20,7 @@
             <th><%= single_org.name %></th>
           <% end %>
           <th><%= "Group" %></th>
-          <th class="last_column">
+          <th id="last_column">
             <%# if @org.org_fields.count != 10 %>
               <b><%=link_to '+',organization_new_fields_path(@org.id)%></b>
             <%# end %>
@@ -59,7 +59,7 @@
       <%=form_for :contact, url: contacts_path, method: :post do |f|%>
         <% @org.org_fields.each do | single_org | %>
         <td>
-          <%=f.text_field "#{single_org.field_no}", :class=>"footer_input", :placeholder=>single_org.name%>
+          <%=f.text_field "#{single_org.field_no}", :class=>"footer_input input_textboxes", :placeholder=>single_org.name%>
         </td>
         <% end %>
         <td><%= f.collection_select :group_id, @groups, :id, :name %></td>

@@ -10,25 +10,30 @@
 
   #header_div{ width: 100%; top: 0; }
 
-  #footer_div{  width: 99%; bottom: 0; }
+  #footer_div{  width: 100%; bottom: 0; }
 
   #cresults_div{
     margin-bottom: 95px;
   }
 
+  @-moz-document url-prefix() {
+   .table-bordered{
+      width:100%;
+      table-layout:fixed;
+     }
+   }
+
   .table-bordered {
     width:100%;
-    table-layout:fixed;
   }
 
   .table-bordered.header {
-    width:100% !important;
-    table-layout:fixed;
+    width:100%;
   }
 
   table tr { height:1em;  }
 
-  .table-bordered input {
+  .input_textboxes{
     width: 100px;
   }
 
@@ -41,8 +46,14 @@
   }
 
   .last_column {
-    width: 35px;
-   }
+    width: 35px !important;
+  }
+
+  #last_column{
+    width: 35px !important;
+  }
+
+
 
   div.fancy-file {
       position: relative;
