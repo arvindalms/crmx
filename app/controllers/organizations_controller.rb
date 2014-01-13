@@ -23,8 +23,9 @@ class OrganizationsController < ApplicationController
 		@org = Organization.find(params[:id])
 		@groups = @org.groups
 
-		if params[:search_field]	
-			@contacts = @org.contacts.search(params[:search_field])
+		if params[:search_field]
+			params[:search_field] = params[:search_field].each {|e,v| "lower(#{e})" "#{v}.downcase" }
+			@contacts = @org.contacts.search(params[:search_field]).sort_by(&:id)
 		else
 			@contacts = @org.contacts.sort_by(&:id)
 		end

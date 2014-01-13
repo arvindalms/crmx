@@ -29,6 +29,7 @@
 
   .table-bordered.header {
     width:100%;
+    table-layout:initial;
   }
 
   table tr { height:1em;  }
@@ -52,8 +53,6 @@
   #last_column{
     width: 35px !important;
   }
-
-
 
   div.fancy-file {
       position: relative;
