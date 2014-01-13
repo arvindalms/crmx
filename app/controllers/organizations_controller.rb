@@ -18,7 +18,6 @@ class OrganizationsController < ApplicationController
 	end
 
 	def show
-	
 		@organisation = Organization.new
 		@org = Organization.find(params[:id])
 		@groups = @org.groups
@@ -30,12 +29,20 @@ class OrganizationsController < ApplicationController
 					@contacts = @org.contacts.sort_by(&:id)
 				else
 					params[:search_field].each do |key, value|
-						@contacts += @org.contacts.find(:all, :conditions => ["#{key} like lower(?)", "%#{value}%"]).sort_by(&:id) if !value.blank?
+						if ActiveRecord::Base.connection.instance_values["config"][:adapter] == "mysql2"
+							@contacts += @org.contacts.find(:all, :conditions => ["#{key} like lower(?)", "%#{value}%"]).sort_by(&:id) if !value.blank?
+						else
+							@contacts += @org.contacts.find(:all, :conditions => ["#{key} ilike lower(?)", "%#{value}%"]).sort_by(&:id) if !value.blank?
+						end
 					end
 				end
 		  else
 				params[:search_field].each do |key, value|
-					@contacts += @org.contacts.find(:all, :conditions => ["#{key} like lower(?)", "%#{value}%"]).sort_by(&:id) if !value.blank?
+					if ActiveRecord::Base.connection.instance_values["config"][:adapter] == "mysql2"
+							@contacts += @org.contacts.find(:all, :conditions => ["#{key} like lower(?)", "%#{value}%"]).sort_by(&:id) if !value.blank?
+					else
+						@contacts += @org.contacts.find(:all, :conditions => ["#{key} ilike lower(?)", "%#{value}%"]).sort_by(&:id) if !value.blank?
+					end
 				end
 			end
 		else
