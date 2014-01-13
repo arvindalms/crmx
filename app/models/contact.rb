@@ -4,7 +4,11 @@ class Contact < ActiveRecord::Base
 	def self.search(search)
     search_str = []  
     search.each do | single |    
-      search_str << "#{single[0]} LIKE '%#{single[1]}%' " if !single[1].blank?
+      if ActiveRecord::Base.connection.instance_values["config"][:adapter] == "mysql2"
+        search_str << "#{single[0]} LIKE '%#{single[1]}%' " if !single[1].blank?
+      else
+        search_str << "#{single[0]} ILIKE '%#{single[1]}%' " if !single[1].blank?
+      end
     end
     if search
      where(search_str.join(' and '))

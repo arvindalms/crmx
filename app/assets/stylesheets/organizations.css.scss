@@ -17,19 +17,20 @@
   }
 
   @-moz-document url-prefix() {
-   .table-bordered{
+    .table-bordered{
       width:100%;
       table-layout:fixed;
-     }
-   }
+    }
+  }
+
 
   .table-bordered {
     width:100%;
+    
   }
 
   .table-bordered.header {
-    width:100%;
-    table-layout:initial;
+    width:100% !important;
   }
 
   table tr { height:1em;  }
@@ -47,11 +48,7 @@
   }
 
   .last_column {
-    width: 35px !important;
-  }
-
-  #last_column{
-    width: 35px !important;
+    width: 35px;
   }
 
   div.fancy-file {

@@ -6,10 +6,7 @@
 .table-bordered thead:last-child tr:last-child th:last-child,.table-bordered tbody:last-child tr:last-child td:last-child{-webkit-border-radius:0 0 4px 0;-moz-border-radius:0 0 4px 0;border-radius:0 0 4px 0;}
 .delete_icon{
 	float:left;	
-	table-layout:fixed;
 }
-
-
 .delete_form{
 	float: left;
 	margin-left:-130px;

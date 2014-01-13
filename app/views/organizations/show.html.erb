@@ -10,7 +10,7 @@
           <% end %>
           <% if !@contacts.blank? %>
             <td></td>
-            <td id="last_column">All<input type="checkbox"  id="select_all"/></td>
+            <td class="last_column">All<input type="checkbox"  id="select_all"/></td>
           <% end %>
         </tr>
       <% end %>
@@ -20,7 +20,7 @@
             <th><%= single_org.name %></th>
           <% end %>
           <th><%= "Group" %></th>
-          <th id="last_column">
+          <th class="last_column">
             <%# if @org.org_fields.count != 10 %>
               <b><%=link_to '+',organization_new_fields_path(@org.id)%></b>
             <%# end %>

@@ -23,28 +23,7 @@ class OrganizationsController < ApplicationController
 		@groups = @org.groups
 
 		if params[:search_field]
-			@contacts = []
-			if params[:search_field].values.uniq.count == 1 
-				if params[:search_field].values.uniq.first.blank?
-					@contacts = @org.contacts.sort_by(&:id)
-				else
-					params[:search_field].each do |key, value|
-						if ActiveRecord::Base.connection.instance_values["config"][:adapter] == "mysql2"
-							@contacts += @org.contacts.find(:all, :conditions => ["#{key} like lower(?)", "%#{value}%"]).sort_by(&:id) if !value.blank?
-						else
-							@contacts += @org.contacts.find(:all, :conditions => ["#{key} ilike lower(?)", "%#{value}%"]).sort_by(&:id) if !value.blank?
-						end
-					end
-				end
-		  else
-				params[:search_field].each do |key, value|
-					if ActiveRecord::Base.connection.instance_values["config"][:adapter] == "mysql2"
-							@contacts += @org.contacts.find(:all, :conditions => ["#{key} like lower(?)", "%#{value}%"]).sort_by(&:id) if !value.blank?
-					else
-						@contacts += @org.contacts.find(:all, :conditions => ["#{key} ilike lower(?)", "%#{value}%"]).sort_by(&:id) if !value.blank?
-					end
-				end
-			end
+			@contacts = @org.contacts.search(params[:search_field])
 		else
 			@contacts = @org.contacts.sort_by(&:id)
 		end
