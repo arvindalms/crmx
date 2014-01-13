@@ -9,12 +9,7 @@
 	table-layout:fixed;
 }
 
-@-moz-document url-prefix() {
-.table-bordered{
-  float:left;
-  table-layout:fixed;
- }
-}
+
 .delete_form{
 	float: left;
 	margin-left:-130px;

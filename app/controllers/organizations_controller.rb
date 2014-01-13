@@ -24,8 +24,20 @@ class OrganizationsController < ApplicationController
 		@groups = @org.groups
 
 		if params[:search_field]
-			params[:search_field] = params[:search_field].each {|e,v| "lower(#{e})" "#{v}.downcase" }
-			@contacts = @org.contacts.search(params[:search_field]).sort_by(&:id)
+			@contacts = []
+			if params[:search_field].values.uniq.count == 1 
+				if params[:search_field].values.uniq.first.blank?
+					@contacts = @org.contacts.sort_by(&:id)
+				else
+					params[:search_field].each do |key, value|
+						@contacts += @org.contacts.find(:all, :conditions => ["#{key} like lower(?)", "%#{value}%"]).sort_by(&:id) if !value.blank?
+					end
+				end
+		  else
+				params[:search_field].each do |key, value|
+					@contacts += @org.contacts.find(:all, :conditions => ["#{key} like lower(?)", "%#{value}%"]).sort_by(&:id) if !value.blank?
+				end
+			end
 		else
 			@contacts = @org.contacts.sort_by(&:id)
 		end
