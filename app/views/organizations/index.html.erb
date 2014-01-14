@@ -1,16 +1,18 @@
 <h1>Organization listing</h1>
 <%=link_to 'New Organization', new_organization_path%><br/>
-<table class="table-bordered">
-	<tr>
-		<th>Organisation Name</th>
-		<th></th>
-		<th></th>
-	</tr>
-	<%@orgs.each do |org|%>
+<% if !@orgs.blank? %>
+	<table class="table-bordered">
 		<tr>
-			<td><%=link_to org.name, org%></td>
-			<td><%=link_to 'Create Groups' , organization_groups_path(org.id)%></td>
-			<td><%=link_to 'Delete', org , method: :delete, data: {confirm: "Are you sure"}%><br/></td>
+			<th>Organisation Name</th>
+			<th></th>
+			<th></th>
 		</tr>
-	<%end%>
-</table>
+		<%@orgs.each do |org|%>
+			<tr>
+				<td><%=link_to org.name, org%></td>
+				<td><%=link_to 'Create Groups' , organization_groups_path(org.id)%></td>
+				<td><%=link_to 'Delete', org , method: :delete, data: {confirm: "Are you sure"}%><br/></td>
+			</tr>
+		<%end%>
+	</table>
+<% end %>

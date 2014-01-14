@@ -1,24 +1,24 @@
 <h1>New Column</h1>
 <br/>
-<table class="table" style="width:280px !important">
-	<%=form_for :org_fields, url: organization_create_fields_path(params[:organization_id]), method: :post do |f| %>
-	<tr>
-		<th><%=f.label :field_no%></th>
-		<td><%= f.select :field_no, options_for_select(["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10"]) %></td>
-	</tr>
-	<tr>
-		<th><%=f.label :name%></th>
-		<td><%=f.text_field :name%></td>
-	</tr>
-	<tr>
-		<th><%=f.label :data_type%></th>
-		<td><%=f.select :data_type, options_for_select(["INT", "VARCHAR", "TEXT", "DATE"]) %></td>
-	</tr>
-	<tr>
-		<th><%=f.hidden_field :organization_id, value: params[:organization_id]%></th>
-		<td><%=f.submit "Create Field", :class=>"btn btn-success" %></td>
-	</tr>
-	<%end%>
-</table>
+<%=form_for :org_fields, url: organization_create_fields_path(params[:organization_id]), method: :post do |f| %>
+	<table class="table" style="width:280px !important">
+		<tr>
+			<th><%=f.label :field_no%></th>
+			<td><%= f.select :field_no, options_for_select(["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10"]) %></td>
+		</tr>
+		<tr>
+			<th><%=f.label :name%></th>
+			<td><%=f.text_field :name%></td>
+		</tr>
+		<tr>
+			<th><%=f.label :data_type%></th>
+			<td><%=f.select :data_type, options_for_select(["INT", "VARCHAR", "TEXT", "DATE"]) %></td>
+		</tr>
+		<tr>
+			<th><%=f.hidden_field :organization_id, value: params[:organization_id]%></th>
+			<td><%=f.submit "Create Field", :class=>"btn btn-success" %></td>
+		</tr>
+	</table>
+<%end%>
 
    

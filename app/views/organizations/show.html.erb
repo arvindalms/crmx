@@ -8,10 +8,7 @@
           <% @org.org_fields.each do | single_org | %>
             <td><input id="<%= single_org.field_no %>" name="search_field[<%= single_org.field_no %>]" type="text" placeholder="Search <%= single_org.name %>" class="input_textboxes"><%#= text_field_tag :first_name %></td>
           <% end %>
-          <% if !@contacts.blank? %>
-            <td></td>
-            <td class="last_column">All<input type="checkbox"  id="select_all"/></td>
-          <% end %>
+          <td></td>
         </tr>
       <% end %>
       <%if @org.present?%>
@@ -20,14 +17,23 @@
             <th><%= single_org.name %></th>
           <% end %>
           <th><%= "Group" %></th>
-          <th class="last_column">
-            <%# if @org.org_fields.count != 10 %>
-              <b><%=link_to '+',organization_new_fields_path(@org.id)%></b>
-            <%# end %>
-          </th>
         </tr>
       <% end %>
     </thead>
+  </table>
+
+  <table class="table-bordered last_column_table">
+        <tr>
+          <td class="last_column">All<input type="checkbox"  id="select_all"/></td>
+        </tr>
+      <%if @org.present?%>
+        <tr>
+          <th class="last_column">
+            <b><%=link_to '+',organization_new_fields_path(@org.id)%></b>
+          </th>
+        </tr>
+      <% end %>
+
   </table>
 </div>
 <!-- For display contacts list-->
@@ -51,7 +57,7 @@
     <div style="margin-top: -40px ! important;">
       Download CSV:
       <%= link_to image_tag("Download.png", :border => 0, :style=>"width: 41px; height: 35px;",:title=>"Downlod CSV"),organization_path(format: "csv")%>
-      <button id="remove_contacts" class="btn btn-danger">Remove</button>
+      <%= link_to "Remove" , "",:id=>"remove_contacts", :class=>"btn btn-danger", :remote => true%>
     </div>
   </div>
   <table class="table-bordered delete_icon">
@@ -69,40 +75,43 @@
   </table>
 </div>
 
+<div class="load" style="display:none;"></div>
+
 <script type="text/javascript">
 
-$("#select_all").click(function(event){
-   $("#cresults_div").find("input:checkbox").trigger( "click" );
-});
-
-$("#remove_contacts").click(function(){
-    var searchIDs = $("input:checkbox:checked").map(function(){
-      return $(this).val();
-    }).get(); // <----
-
-    $.ajax({
-        type: "post",
-        url: "<%= destroy_contacts_path %>", //sumbits it to the given url of the form
-        data: { selected_contact_ids: searchIDs }
-    });
-});
-
-
-
-function uploadFile() {
-  $( "#submit_csv_form" ).trigger( "click" )
-}
-
-
-$(function(){
-  <% @org.org_fields.each do | single_org | %>
-    $("#<%= single_org.field_no %>").keyup(function() {
-      $.get($("#contacts_search").attr("action"), $("#contacts_search").serialize(), null, "script");
-      return false;
+  $("#select_all").click(function(event){
+     $("#cresults_div").find("input:checkbox").trigger( "click" );
   });
-  <% end %>
-});
+
+
+  function uploadFile() {
+    $( "#submit_csv_form" ).trigger( "click" );
+  }
+
+
+  $("#remove_contacts").click(function(){
+      var searchIDs = $("input:checkbox:checked").map(function(){
+        return $(this).val();
+      }).get(); // <----
+
+      $.ajax({
+          type: "post",
+          url: "<%= destroy_contacts_path %>", //sumbits it to the given url of the form
+          data: { selected_contact_ids: searchIDs },
+          success: function(){ return false; } 
+      });
+  });
+
+
+  $(function(){
+    <% @org.org_fields.each do | single_org | %>
+      $("#<%= single_org.field_no %>").keyup(function() {
+        $.get($("#contacts_search").attr("action"), $("#contacts_search").serialize(), null, "script");
+        $(".load").show();
+        return false;
+    });
+    <% end %>
+  });
 
 
 </script>
-

@@ -2,68 +2,81 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
- .stick{
-    background: none repeat scroll 0 0 white;
-  	position: fixed;
-  	height: auto;
-  }
+.stick{
+  background: none repeat scroll 0 0 white;
+	position: fixed;
+	height: auto;
+}
 
-  #header_div{ width: 100%; top: 0; }
+#header_div{ width: 100%; top: 0; }
 
-  #footer_div{  width: 100%; bottom: 0; }
+#footer_div{  width: 100%; bottom: 0; }
 
-  #cresults_div{
-    margin-bottom: 95px;
-  }
+#cresults_div{
+  margin-bottom: 95px;
+}
 
-  @-moz-document url-prefix() {
-    .table-bordered{
-      width:100%;
-      table-layout:fixed;
-    }
-  }
+.header{
+  width:96%;
+  table-layout:fixed;
+  float:left;
+}
 
+.delete_icon {
+  width:100%;
+  table-layout:fixed;
+}
 
-  .table-bordered {
-    width:100%;
-    
-  }
+.last_column_table{
+  width: 4%;
+  height: 65px;
+}
 
-  .table-bordered.header {
-    width:100% !important;
-  }
+table tr { height:1em;  }
 
-  table tr { height:1em;  }
+.input_textboxes{
+  width: 100px;
+}
 
-  .input_textboxes{
-    width: 100px;
-  }
+td{
+  overflow:hidden;
+}
 
-  td{
-    overflow:hidden;
-  }
+.footer_input {
+  width: 90px !important;
+}
 
-  .footer_input {
-    width: 90px !important;
-  }
+.last_column {
+  width: 55px;
+}
 
-  .last_column {
-    width: 35px;
-  }
+div.fancy-file {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    width: 155px;
+    left: -157px;
+}
 
-  div.fancy-file {
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      width: 155px;
-      left: -157px;
-  }
+div.input-container {
+    position: absolute;
+    top: -3px; left: 75px;
+}
 
-  div.input-container {
-      position: absolute;
-      top: 0; left: 0;
-  }
+div.input-container input { opacity: 0; }
 
-  div.input-container input { opacity: 0; }
+.pull-right{float:right;}
 
-  .pull-right{float:right;}
+html, body, .load { height: 100%; width: 100%; }
+
+.load {
+  position : fixed;
+  z-index : 1; /* or higher if necessary */
+  top : 0;
+  left : 0;
+  overflow : hidden;
+  text-indent : 100%;
+  font-size : 0;
+  opacity: 0.47;
+  background : url("/assets/ajax-loader2.gif") center no-repeat #ccc;
+}
