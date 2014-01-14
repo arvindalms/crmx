@@ -25,17 +25,15 @@ class ContactsController < ApplicationController
 					@contact.destroy
 				end
 			end
-			respond_to do |format|
-				format.js 
-			end
+			@org = Organization.find(@org_id)
 		else
 			@org = Organization.find(params[:contact][:org_id])
 			@contacts = Contact.find(params[:contact_ids])
 		    @contacts.each do |contact|
 	  		  @contact.destroy 
 	 		end
-		 	respond_with @org
 		end
+		respond_with @org
 	end
 
 	respond_to :html, :json

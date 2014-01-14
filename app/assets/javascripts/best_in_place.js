@@ -72,18 +72,27 @@ BestInPlaceEditor.prototype = {
   },
 
   update : function() {
+    $(".load").show();
     var editor = this;
     if (this.formType in {"input":1, "textarea":1} && this.getValue() == this.oldValue)
     { // Avoid request if no change is made
       this.abort();
+      $(".load").hide();
       return true;
+
     }
     editor.ajax({
       "type"       : "post",
       "dataType"   : "text",
       "data"       : editor.requestData(),
-      "success"    : function(data){ editor.loadSuccessCallback(data); },
-      "error"      : function(request, error){ editor.loadErrorCallback(request, error); }
+      "success"    : function(data){ 
+        editor.loadSuccessCallback(data); 
+        $(".load").hide();
+      },
+      "error"      : function(request, error){ 
+        editor.loadErrorCallback(request, error); 
+        $(".load").hide(); 
+      }
     });
     if (this.formType == "select") {
       var value = this.getValue();
@@ -272,6 +281,7 @@ BestInPlaceEditor.prototype = {
     // Binding back after being clicked
     jQuery(this.activator).bind('click', {editor: this}, this.clickHandler);
     this.element.trigger(jQuery.Event("best_in_place:deactivate"));
+    $(".load").hide();
   },
 
   clickHandler : function(event) {

@@ -23,7 +23,7 @@ class OrganizationsController < ApplicationController
 		@groups = @org.groups
 
 		if params[:search_field]
-			@contacts = @org.contacts.search(params[:search_field])
+			@contacts = @org.contacts.search(params[:search_field]).sort_by(&:id)
 		else
 			@contacts = @org.contacts.sort_by(&:id)
 		end
@@ -41,11 +41,24 @@ class OrganizationsController < ApplicationController
 	end
 
 	def groups
+
 		@org = Organization.find(params[:organization_id])
 		@groups = @org.groups
 	end
 
+	def new_fields
+		if OrgField.find_by_organization_id(params[:organization_id]).nil?
+			@count = 0
+		else
+			@count = OrgField.find_all_by_organization_id(params[:organization_id]).last.field_no.gsub("f", "").to_i
+		end
+	end
+
 	def create_fields
+		if fields_params["field_no"].gsub("f","").to_i > Contact.column_names.keep_if{ |v| v =~ /[f]/ }.count
+			system "rails g migration add_column_to_contacts #{fields_params["field_no"]}:string"
+			system "rake db:migrate"
+		end
 		field = OrgField.new(fields_params)
 		if field.save!
 			redirect_to organization_path(params[:organization_id])
@@ -53,6 +66,7 @@ class OrganizationsController < ApplicationController
 	end
 
 	def create_group
+		debugger
 		group = Group.new(group_params)
 		if group.save
 			redirect_to organization_path(params[:organization_id])
@@ -87,6 +101,7 @@ class OrganizationsController < ApplicationController
 	      #remove first row with column name and make a new array with contacts
 	      contacts = contacts[1..contacts.length]
 	      contacts.each do |contact|
+	      	debugger
 	        @contact = Contact.new
 	        @contact.f1=contact["f1"]
 	        @contact.f2=contact["f2"]
