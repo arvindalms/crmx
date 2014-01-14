@@ -69,7 +69,7 @@
         </td>
         <% end %>
         <td><%= f.collection_select :group_id, @groups, :id, :name %></td>
-        <td><%=f.submit 'save', :style=>"width:54px;", :class=>"btn btn-primary" %></td>
+        <td class="last_column" ><%=f.submit 'save', :type => :image, :src => "../assets/enter.png" , :style=>"width:15px;" %></td>
       <%end%>
     </tr>
   </table>
