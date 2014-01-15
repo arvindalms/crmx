@@ -66,7 +66,6 @@ class OrganizationsController < ApplicationController
 	end
 
 	def create_group
-		debugger
 		group = Group.new(group_params)
 		if group.save
 			redirect_to organization_path(params[:organization_id])
@@ -76,22 +75,15 @@ class OrganizationsController < ApplicationController
 	def upload_csv
 		if params[:file].content_type == "text/csv"
 		  contacts = []
+		  @available_fields = OrgField.find_all_by_organization_id(Group.find(params[:default_group_id]).organization_id).collect(&:field_no)
 	      CSV.foreach(params[:file].tempfile) { |row|
 	          row = row.first.split(",") if row.count == 1
 	          contact_data = {}
-	          contact_data["f1"] = row[0]
-	          contact_data["f2"] = row[1]
-	          contact_data["f3"] = row[2]
-	          contact_data["f4"] = row[3]
-	          contact_data["f5"] = row[4]
-	          contact_data["f6"] = row[5]
-	          contact_data["f7"] = row[6]
-	          contact_data["f8"] = row[7]
-	          contact_data["f9"] = row[8]
-	          contact_data["f10"] = row[9]
-
-	          if(!row[10].blank? && (Group.all.collect(&:id).include? row[10].to_i))
-	          	contact_data["group_id"] = row[10]
+	          @available_fields.each_with_index do |field, index|
+		          contact_data[field] = row[index]
+		      end
+	          if(!row.last.blank? && (Group.all.collect(&:id).include? row.last.to_i))
+	          	contact_data["group_id"] = row.last
 	          else
 	          	contact_data["group_id"] = params[:default_group_id]
 	          end
@@ -101,18 +93,10 @@ class OrganizationsController < ApplicationController
 	      #remove first row with column name and make a new array with contacts
 	      contacts = contacts[1..contacts.length]
 	      contacts.each do |contact|
-	      	debugger
 	        @contact = Contact.new
-	        @contact.f1=contact["f1"]
-	        @contact.f2=contact["f2"]
-	        @contact.f3=contact["f3"]
-	        @contact.f4=contact["f4"]
-	        @contact.f5=contact["f5"]
-	        @contact.f6=contact["f6"]
-	        @contact.f7=contact["f7"]
-	        @contact.f8=contact["f8"]
-	        @contact.f9=contact["f9"]
-	        @contact.f10=contact["f10"]
+	        @available_fields.each_with_index do |field, index|
+	        	@contact[field] = contact[field]
+	        end
 	        @contact.group_id=contact["group_id"]
 	        @contact.save
      	  end
