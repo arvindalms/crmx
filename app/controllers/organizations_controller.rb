@@ -56,7 +56,7 @@ class OrganizationsController < ApplicationController
 
 	def create_fields
 		if fields_params["field_no"].gsub("f","").to_i > Contact.column_names.keep_if{ |v| v =~ /[f]/ }.count
-			system "rails g migration add_column_to_contacts #{fields_params["field_no"]}:string"
+			system "rails g migration add_column_#{fields_params["field_no"]}_to_contacts #{fields_params["field_no"]}:string"
 			system "rake db:migrate"
 		end
 		field = OrgField.new(fields_params)

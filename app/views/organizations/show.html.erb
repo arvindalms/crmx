@@ -69,7 +69,7 @@
         </td>
         <% end %>
         <td><%= f.collection_select :group_id, @groups, :id, :name %></td>
-        <td class="last_column" ><%=f.submit 'save', :type => :image, :src => "../assets/enter.png" , :style=>"width:15px;" %></td>
+        <td class="last_column" ><%=f.submit 'save', :type => :image, :src => "/assets/enter.png" , :style=>"width:15px;" %></td>
       <%end%>
     </tr>
   </table>
@@ -79,9 +79,9 @@
 
 <script type="text/javascript">
 
-  $("#select_all").click(function(event){
-     $("#cresults_div").find("input:checkbox").trigger( "click" );
-  });
+   $("#select_all").click(function(event){
+      $("#cresults_div").find('input:checkbox').prop('checked', this.checked);    
+   });
 
 
   function uploadFile() {
@@ -98,7 +98,7 @@
           type: "post",
           url: "<%= destroy_contacts_path %>", //sumbits it to the given url of the form
           data: { selected_contact_ids: searchIDs },
-          success: function(){ return false; } 
+          success: function(){ $("#select_all").prop('checked', ""); return false; } 
       });
   });
 
