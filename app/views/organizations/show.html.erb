@@ -59,13 +59,15 @@
         </td>
         <% end %>
         <td><%= f.collection_select :group_id, @groups, :id, :name %></td>
-        <td class="last_column" ><%=f.submit 'save', :type => :image, :src => "/assets/enter.png" , :style=>"width:15px;" %></td>
+        <td class="last_column" >
+          <%= image_submit_tag("enter.png", :style=>"width:15px;")  %>
+        </td>
       <%end%>
     </tr>
   </table>
 </div>
 
-<div class="load" style="display:none;"></div>
+<div class="load" style="display:none; "></div>
 
 <script type="text/javascript">
 
@@ -93,9 +95,6 @@
       });
   });
 
-</script>
-
-<script>
   $(function(){
     <% @org.org_fields.each do | single_org | %>
       $("#<%= single_org.field_no %>").keyup(function() {

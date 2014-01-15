@@ -41,7 +41,6 @@ class OrganizationsController < ApplicationController
 	end
 
 	def groups
-
 		@org = Organization.find(params[:organization_id])
 		@groups = @org.groups
 	end
