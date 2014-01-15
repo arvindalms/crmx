@@ -45,7 +45,7 @@ class ContactsController < ApplicationController
 
 	private
 	def contact_params
-		params.require(:contact).permit(:group_id,:f1,:f2,:f3,:f4,:f5,:f6,:f7,:f8,:f9,:f10)
+		params.require(:contact).permit(Contact.column_names.select { |v| v =~ /[f]/ }.append("group_id"))
 	end
 
 end

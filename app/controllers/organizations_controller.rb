@@ -23,9 +23,9 @@ class OrganizationsController < ApplicationController
 		@groups = @org.groups
 
 		if params[:search_field]
-			@contacts = @org.contacts.search(params[:search_field]).sort_by(&:id)
+			@contacts = @org.contacts.search(params[:search_field]).order(:id)
 		else
-			@contacts = @org.contacts.sort_by(&:id)
+			@contacts = @org.contacts.order(:id)
 		end
 		respond_to do |format|
 	      format.html

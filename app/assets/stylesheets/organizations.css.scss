@@ -17,7 +17,7 @@
 }
 
 .header{
-  width:96%;
+  width:100%;
   table-layout:fixed;
   float:left;
 }
@@ -27,18 +27,13 @@
   table-layout:fixed;
 }
 
-.last_column_table{
-  width: 4%;
-  height: 65px;
-}
-
 table tr { height:1em;  }
 
 .input_textboxes{
   width: 100px;
 }
 
-td{
+td, th{
   overflow:hidden;
 }
 
@@ -55,7 +50,7 @@ div.fancy-file {
     overflow: hidden;
     cursor: pointer;
     width: 155px;
-    left: -157px;
+    left: -130px;
 }
 
 div.input-container {
