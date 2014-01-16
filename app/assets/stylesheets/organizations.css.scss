@@ -62,16 +62,16 @@ div.input-container input { opacity: 0; }
 
 .pull-right{float:right;}
 
-html, body, .load { height: 100%; width: 100%; }
+html, body, .load { height: 100%; width: 100%;  }
 
 .load {
-  position : fixed;
-  z-index : 1; /* or higher if necessary */
-  top : 0;
-  left : 0;
-  overflow : hidden;
-  text-indent : 100%;
-  font-size : 0;
   opacity: 0.47;
-  background : url("/assets/ajax-loader2.gif") center no-repeat #ccc;
+  position: fixed;
+  text-align: center;
+  background-color: #CCCCCC;
+}
+
+.load > img {
+  margin-top: 13%;
+  height: 70px;
 }
